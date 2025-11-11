@@ -1,0 +1,303 @@
+.App {
+  font-family: 'Roboto', sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.header {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  border-bottom: 1px solid #4a5568;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  color: #ffffff;
+}
+
+.header h1 {
+  margin: 0;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 24px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.auth-buttons button {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.auth-buttons button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.calendar-container {
+  flex: 1;
+  padding: 20px;
+  background: #121212;
+  overflow: auto;
+}
+
+.form-container {
+  display: none; /* Hide old form */
+}
+
+.event-list {
+  display: none; /* Hide old list */
+}
+
+.modal {
+  background: #333;
+  color: #ffffff;
+}
+
+.App.dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.App.dark .header {
+  background: #1e1e1e;
+  border-bottom: 1px solid #333;
+}
+
+.App.dark .header h1 {
+  color: #ffffff;
+}
+
+.App.dark .sidebar {
+  background: #1e1e1e;
+  border-right: 1px solid #333;
+}
+
+.App.dark input, .App.dark textarea {
+  background: #333;
+  color: #ffffff;
+  border: 1px solid #555;
+}
+
+.App.dark button {
+  background: #4285f4;
+  color: white;
+}
+
+.App.dark .modal {
+  background: #333;
+  color: #ffffff;
+}
+
+.App.dark .modal input, .App.dark .modal textarea {
+  background: #555;
+  color: #ffffff;
+  border: 1px solid #777;
+}
+
+.App.dark .rbc-calendar {
+  background: #121212;
+  color: #ffffff;
+}
+
+.App.dark .rbc-toolbar {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+.App.dark .rbc-toolbar button {
+  color: #ffffff;
+}
+
+.App.dark .rbc-month-view {
+  background: #121212;
+}
+
+.App.dark .rbc-day-bg {
+  background: #1e1e1e;
+}
+
+.App.dark .rbc-today {
+  background: #333;
+}
+
+.App.dark .rbc-toolbar button {
+  color: #ffffff;
+  background: #333;
+  border: 1px solid #555;
+}
+
+.App.dark .rbc-toolbar button:hover {
+  background: #555;
+}
+
+.App.dark .rbc-event {
+  background: #4285f4 !important;
+  color: white !important;
+}
+
+.App.dark .rbc-overlay {
+  background: #1e1e1e;
+  color: white;
+}
+
+.App.dark .rbc-overlay-header {
+  background: #333;
+}
+
+.App.dark .rbc-header {
+  background: #1e1e1e;
+  color: white;
+}
+
+.App.dark .rbc-month-header {
+  background: #1e1e1e;
+  color: white;
+}
+
+.App.dark .rbc-time-view {
+  background: #121212;
+  color: white;
+}
+
+.App.dark .rbc-time-header {
+  background: #1e1e1e;
+  color: white;
+}
+
+.App.dark .rbc-time-content {
+  background: #121212;
+}
+
+.App.dark .rbc-time-slot {
+  background: #1e1e1e;
+  color: white;
+}
+
+.sidebar button.selected {
+  background: #e0e0e0;
+}
+
+.App.dark .sidebar button.selected {
+  background: #333;
+}
+
+.sidebar button {
+  background: none;
+  color: #ffffff;
+  border: none;
+  padding: 5px;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+}
+
+.sidebar button:hover {
+  background: #333;
+}
+
+.sidebar button.selected {
+  background: #4285f4;
+  color: white;
+}
+
+.App.dark .sidebar button.selected {
+  background: #4285f4;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  border-color: #4285f4;
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background: #4285f4;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #3367d6;
+}
+
+.btn-secondary {
+  background: #333;
+  color: white;
+  border: 1px solid #555;
+}
+
+.btn-secondary:hover {
+  background: #555;
+}
+
+.btn-danger {
+  background: #db4437;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #c23321;
+}
+
+.form-group p {
+  margin: 0;
+  padding: 8px 0;
+  font-size: 14px;
+  color: white;
+}
+
+
