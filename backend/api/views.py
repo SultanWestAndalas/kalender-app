@@ -4,8 +4,12 @@ from rest_framework import generics, permissions
 from rest_framework import status
 from django.contrib.auth.models import User
 from rest_framework.parsers import JSONParser
-from .models import Message, Event
-from .serializers import MessageSerializer, EventSerializer
+from .models import Message, Event, UserProfile
+from .serializers import MessageSerializer, EventSerializer, RegisterSerializer, UserSerializer
+
+class IsOwner(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.owner == request.user
 
 class MessageList(APIView):
     def get(self, request):
@@ -16,31 +20,29 @@ class MessageList(APIView):
 class EventList(generics.ListCreateAPIView):
     queryset = Event.objects.all().order_by('-start_time')
     serializer_class = EventSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Event.objects.filter(owner=self.request.user).order_by('-start_time')
 
     def perform_create(self, serializer):
-        # owner set dari user yang sedang login; jika anonim, owner harus di-set oleh client atau ditolak
-        if self.request.user and self.request.user.is_authenticated:
-            serializer.save(owner=self.request.user)
-        else:
-            serializer.save()  # development convenience; ganti dengan error di production
+        serializer.save(owner=self.request.user)
 
 class EventDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
 
 
-class RegisterView(APIView):
-    parser_classes = [JSONParser]
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterSerializer
     permission_classes = [permissions.AllowAny]
 
-    def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
-        if not username or not password:
-            return Response({'detail': 'username and password required'}, status=status.HTTP_400_BAD_REQUEST)
-        if User.objects.filter(username=username).exists():
-            return Response({'detail': 'user exists'}, status=status.HTTP_400_BAD_REQUEST)
-        user = User.objects.create_user(username=username, password=password)
-        return Response({'id': user.id, 'username': user.username}, status=status.HTTP_201_CREATED)
+class UserProfileView(generics.RetrieveUpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
